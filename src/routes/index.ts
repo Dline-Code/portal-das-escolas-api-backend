@@ -1,7 +1,7 @@
 import { Response,Request, Router } from "express";
 
+const contactRoutes = require('./ContactRoutes/contactRoutes')
 const userRoutes = require('./UserRoutes/userRoutes')
-
 const  routes = Router();
 
 routes.get('/',((req:Request, res:Response,)=>{
@@ -10,5 +10,7 @@ routes.get('/',((req:Request, res:Response,)=>{
 }))
 
 routes.use(userRoutes)
+
+routes.use(contactRoutes)
 
 export default routes;
