@@ -47,5 +47,8 @@ class UseCaseContact {
       }
     }
   }
+  async onDelete(){
+
+  }
 }
 export default new UseCaseContact();

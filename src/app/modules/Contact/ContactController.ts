@@ -20,6 +20,8 @@ import CreateContact from './CreateContact/CreateContact';
 import FindAllContacts from './FindContact/FindAllContacts';
 import FindOneContactById from './FindContact/FindOneContactById';
 import FindAllContactByUser from './FindContact/FindAllContactByUser ';
+import DeleteAllContactOfUser from './DeleteContact/DeleteAllContactOfUser';
+import DeleteOneContactOfUser from './DeleteContact/DeleteOneContactOfUser';
 
 class ContactController {
   async get(req: Request, res: Response) {
@@ -95,5 +97,23 @@ class ContactController {
       return res.status(erroInterno).json(mensagemDeErroInterno);
     }
   }
+
+
+  async delete(req: Request, res: Response) {
+      try {
+        const { userId,id } = req.params;
+
+        if (id !== indefinido) return await DeleteOneContactOfUser.execute(userId,id,res, req);
+
+        return await DeleteAllContactOfUser.execute(userId,res, req);
+
+        return res.status(retornoNaoObrigatorio).json();
+      } catch (erro) {
+        return res.status(erroInterno).json(mensagemDeErroInterno);
+      }
+    }
 }
+
+
+
 export default new ContactController();
