@@ -19,6 +19,7 @@ import UseCaseContact from './UseCaseContact/UseCaseContact';
 import CreateContact from './CreateContact/CreateContact';
 import FindAllContacts from './FindContact/FindAllContacts';
 import FindOneContactById from './FindContact/FindOneContactById';
+import FindAllContactByUser from './FindContact/FindAllContactByUser ';
 
 class ContactController {
   async get(req: Request, res: Response) {
@@ -48,30 +49,22 @@ class ContactController {
   }
 
   async getAllByUser(req: Request, res: Response) {
-      try {
-        const { id, limit } = req.params;
-        const contact = await FindAllContacts.execute();
+    try {
+      const { userId, limit } = req.params;
+      const contact = await FindAllContactByUser.execute(userId);
 
-        if (id !== indefinido) {
-          const contact = await FindOneContactById.execute(id);
-
-          if (!contact) return res.status(naoEncontrado).json(naoEncontrado_msg);
-
-          return res.status(ok).json(contact);
-        }
-
-        if (limit !== indefinido) {
-          const contact = await FindAllContacts.execute(Number(limit));
-
-          return res.status(ok).json(contact);
-        }
+      if (limit !== indefinido) {
+        const contact = await FindAllContactByUser.execute(userId,null,Number(limit));
 
         return res.status(ok).json(contact);
-      } catch (erro) {
-        console.log(erro);
-        return res.status(erroInterno).json(mensagemDeErroInterno);
       }
+
+      return res.status(ok).json(contact);
+    } catch (erro) {
+      console.log(erro);
+      return res.status(erroInterno).json(mensagemDeErroInterno);
     }
+  }
 
   async store(req: Request, res: Response) {
     try {
