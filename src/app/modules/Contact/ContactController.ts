@@ -26,13 +26,13 @@ class ContactController {
       const { id, limit } = req.params;
       const contact = await FindAllContacts.execute();
 
-      // if (id !== indefinido) {
-      //   const contact = await FindOneContactById.execute(id);
+      if (id !== indefinido) {
+        const contact = await FindOneContactById.execute(id);
 
-      //   if (!contact) return res.status(naoEncontrado).json(naoEncontrado_msg);
+        if (!contact) return res.status(naoEncontrado).json(naoEncontrado_msg);
 
-      //   return res.status(ok).json(contact);
-      // }
+        return res.status(ok).json(contact);
+      }
 
       if (limit !== indefinido) {
         const contact = await FindAllContacts.execute(Number(limit));
@@ -47,6 +47,32 @@ class ContactController {
     }
   }
 
+  async getAllByUser(req: Request, res: Response) {
+      try {
+        const { id, limit } = req.params;
+        const contact = await FindAllContacts.execute();
+
+        if (id !== indefinido) {
+          const contact = await FindOneContactById.execute(id);
+
+          if (!contact) return res.status(naoEncontrado).json(naoEncontrado_msg);
+
+          return res.status(ok).json(contact);
+        }
+
+        if (limit !== indefinido) {
+          const contact = await FindAllContacts.execute(Number(limit));
+
+          return res.status(ok).json(contact);
+        }
+
+        return res.status(ok).json(contact);
+      } catch (erro) {
+        console.log(erro);
+        return res.status(erroInterno).json(mensagemDeErroInterno);
+      }
+    }
+
   async store(req: Request, res: Response) {
     try {
       const schema = Yup.object().shape({
@@ -58,10 +84,9 @@ class ContactController {
         return res.status(erroExterno).json(mensagemDeValidacaoDeCampo);
       }
 
-const {designacao,descricao,userId}=req.body
+      const { designacao, descricao, userId } = req.body;
 
-
-      const permition = await UseCaseContact.execute({designacao,descricao,userId});
+      const permition = await UseCaseContact.execute({ designacao, descricao, userId });
       if (permition.status === proibido) {
         return res.status(proibido).json(permition.message);
       }
@@ -69,10 +94,10 @@ const {designacao,descricao,userId}=req.body
       if (permition.status === naoEncontrado) {
         return res.status(permition.status).json(permition.message);
       }
-      if(permition.status===ok)
-      return await CreateContact.execute({designacao,descricao,userId}, res, req);
+      if (permition.status === ok)
+        return await CreateContact.execute({ designacao, descricao, userId }, res, req);
 
-      return await CreateContact.execute({designacao,descricao,userId}, res, req);
+      return await CreateContact.execute({ designacao, descricao, userId }, res, req);
     } catch (erro) {
       return res.status(erroInterno).json(mensagemDeErroInterno);
     }

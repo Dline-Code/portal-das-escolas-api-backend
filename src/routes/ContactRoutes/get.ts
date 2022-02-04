@@ -5,8 +5,7 @@ const route = Router();
 
 route.get('/contact', ContactController.get);
 route.get('/contact/id/:id', ContactController.get);
-// route.get('/contact/numberDocument/:numeroDeDocumento', ContactController.getByNumeroDeDocumento);
-// route.get('/contact/limit/:limit', ContactController.get);
+route.get('/contact/limit/:limit', ContactController.get);
 // route.get('/contact/genero/:genero', ContactController.getByGenero);
 // route.get('/contact/genero/:genero/:limit', ContactController.getByGenero);
 

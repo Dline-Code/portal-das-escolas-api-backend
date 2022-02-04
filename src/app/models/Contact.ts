@@ -11,7 +11,7 @@ export default class Contact extends ComumAtributtes {
     eager: true,
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
-    nullable: false,
+    nullable: true,
   })
   @JoinColumn({ name: 'userId' })
   userId: User;

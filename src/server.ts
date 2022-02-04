@@ -6,8 +6,6 @@ import cors from 'cors';
 import morgan from 'morgan';
 import routes from './routes/index';
 
-
-
 const server = express();
 server.use(express.json());
 
