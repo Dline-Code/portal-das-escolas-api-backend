@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import ContactController from '../../app/modules/Contact/ContactController';
+import LoginController from '../../app/modules/Login/LoginController';
 
 const route = Router();
-route.post('/contact', ContactController.store);
+route.post('/login/user/:userId/contact/:contactId', LoginController.store);
 
 module.exports = route;

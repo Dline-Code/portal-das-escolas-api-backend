@@ -9,8 +9,8 @@ class LoginController {
   async store(req: Request, res: Response) {
     try {
       const schema = Yup.object().shape({
-        designacao: Yup.string().required(),
-        descricao: Yup.string(),
+       password: Yup.string().required(),
+
       });
 
       if (!(await schema.isValid(req.body))) {
@@ -23,7 +23,7 @@ class LoginController {
       const permition = await UseCaseDataLogin.execute({ password, contactId, userId });
 
       if (permition.status === proibido) {
-        return res.status(proibido).json(permition.status);
+        return res.status(proibido).json(permition.message);
       }
 
       if (permition.status === naoEncontrado) {

@@ -51,10 +51,10 @@ class UseCaseLogin {
           message: 'selecione um contacto!',
         };
 
-      const loginAlreadyExist = await loginRepository.findOne({ where: { contactId, userId } });
+      const loginExist = await loginRepository.findOne({ where: { contactId, userId } });
 
-      VerifyAlreadyExist(loginAlreadyExist);
-      if (contactExist) {
+      const loginAlreadyExist = VerifyAlreadyExist(loginExist);
+      if (loginAlreadyExist!==vazio) {
         return {
           status: proibido,
           message: 'login' + jaExistente,
