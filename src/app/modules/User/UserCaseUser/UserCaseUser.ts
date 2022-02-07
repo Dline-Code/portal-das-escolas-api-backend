@@ -1,11 +1,8 @@
-import { Response, Request } from 'express';
 import { getCustomRepository } from 'typeorm';
 import IUser from '../Iuser';
 import UserRepository from '../../../../repositories/UserRepository';
- import { erroExterno, erroInterno, ok, proibido,vazio } from '../../statusHTTP_Values';
+import { ok, proibido, vazio } from '../../statusHTTP_Values';
 import VerifyAlreadyExist from '../../Function/VerifyAlreadyExist';
-
-
 
 class UseCaseUser {
   async execute(userData: IUser) {

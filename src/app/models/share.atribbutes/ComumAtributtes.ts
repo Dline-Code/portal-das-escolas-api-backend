@@ -8,7 +8,7 @@ abstract class ComumAtributtes extends DefaultDatesAtributtes   {
   @Column({type:'varchar'})
   designacao:string;
 
-  @Column({type:'varchar'})
+  @Column({type:'varchar',default:'desconhecido'})
   descricao:string;
 }
 export default ComumAtributtes;
