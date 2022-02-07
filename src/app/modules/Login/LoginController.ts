@@ -1,16 +1,45 @@
 import { Request, Response } from 'express';
 import * as Yup from 'yup';
-import { mensagemDeErroInterno, mensagemDeValidacaoDeCampo } from '../mensagensDeResposta';
-import { erroExterno, erroInterno, naoEncontrado, ok, proibido } from '../statusHTTP_Values';
+import VerifyAlreadyExist from '../Function/VerifyAlreadyExist';
+import {
+  mensagemDeErroInterno,
+  mensagemDeValidacaoDeCampo,
+  naoEncontrado_msg,
+} from '../mensagensDeResposta';
+import {
+  erroExterno,
+  erroInterno,
+  indefinido,
+  naoEncontrado,
+  ok,
+  proibido,
+  vazio,
+} from '../statusHTTP_Values';
 import CreateDataLogin from './CreateDataLogin/CreateDataLogin';
+import FindOneDataLoginOfUser from './FindLogin/FindOneDataLoginOfUser';
 import UseCaseDataLogin from './UseCaseDataLogin/UseCaseDataLogin';
 
 class LoginController {
+  async get(req: Request, res: Response) {
+    try {
+      const { userId, limit } = req.params;
+      const login = await FindOneDataLoginOfUser.execute(userId);
+      const exitLogin = VerifyAlreadyExist(login);
+
+      if (exitLogin === vazio) {
+        return res.status(naoEncontrado).json(naoEncontrado_msg);
+      }
+      return res.status(ok).json(login);
+    } catch (erro) {
+      console.log(erro);
+      return res.status(erroInterno).json(mensagemDeErroInterno);
+    }
+  }
+
   async store(req: Request, res: Response) {
     try {
       const schema = Yup.object().shape({
-       password: Yup.string().required(),
-
+        password: Yup.string().required(),
       });
 
       if (!(await schema.isValid(req.body))) {
@@ -38,4 +67,4 @@ class LoginController {
     }
   }
 }
-export default new LoginController ()
+export default new LoginController();
