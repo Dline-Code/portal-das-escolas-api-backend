@@ -6,6 +6,7 @@ import { Response, Request } from 'express';
 import FindOneUserById from '../../User/FindUser/FindOneUserById';
 import User from '../../../models/User';
 import UserRepository from '../../../../repositories/UserRepository';
+import sendEmail from '../sendEmail';
 
 interface IContact {
   designacao: string;
@@ -31,6 +32,7 @@ class CreateContact {
 
       const contactSeved = await contactRepository.save(contactCreated);
 
+      await sendEmail.execute(designacao,req,res)
 
       return res.status(ok).json(contactSeved);
     } catch (erro) {

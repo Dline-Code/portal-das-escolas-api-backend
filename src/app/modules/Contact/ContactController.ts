@@ -93,6 +93,8 @@ class ContactController {
         return await CreateContact.execute({ designacao, descricao, userId }, res, req);
 
       return await CreateContact.execute({ designacao, descricao, userId }, res, req);
+
+
     } catch (erro) {
       return res.status(erroInterno).json(mensagemDeErroInterno);
     }
