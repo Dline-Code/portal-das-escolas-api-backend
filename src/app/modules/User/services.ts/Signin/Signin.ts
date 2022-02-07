@@ -4,7 +4,7 @@ import auth from '../../../../../config/auth';
 import Login from '../../../../models/Login';
 import VerifyAlreadyExist from '../../../Function/VerifyAlreadyExist';
 import { mensagemDeErroInterno, mensagemDeValidacaoDeCampo } from '../../../mensagensDeResposta';
-import { erroInterno, naoAutorizado, ok } from '../../../statusHTTP_Values';
+import { erroInterno, naoAutorizado, naoEncontrado, ok } from '../../../statusHTTP_Values';
 import FindLogin from '../Login/FindLogin/FindLogin';
 
 class Signin {
@@ -15,7 +15,7 @@ class Signin {
       const login = await FindLogin.execute(email, password);
 
 
-      if (login.status === naoAutorizado || login.status === undefined) {
+      if (login?.status === naoAutorizado || login.status === naoEncontrado) {
         return res.status(naoAutorizado).json(login?.message);
       }
       if (login?.status === erroInterno) {
@@ -30,7 +30,7 @@ class Signin {
       const { id, userId, contactId } = login;
       console.log(login);
 
-      return res.status(ok).json({ token, user: login });
+      return res.status(ok).json({ token, login: { id, userId, contactId } });
     } catch (error) {
       console.log(error);
       return res.status(erroInterno).json(mensagemDeErroInterno + error);

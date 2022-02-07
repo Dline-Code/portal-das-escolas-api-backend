@@ -6,7 +6,7 @@ import { Response, Request } from 'express';
 import FindOneUserById from '../../User/FindUser/FindOneUserById';
 import User from '../../../models/User';
 import UserRepository from '../../../../repositories/UserRepository';
-import sendEmail from '../sendEmail';
+import sendEmail from '../SendEmail';
 
 interface IContact {
   designacao: string;

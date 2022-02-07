@@ -1,20 +1,21 @@
 import FindOneContactByDesignacao from './FindContact/FindOneContactByDesignacao';
 import Mail from '../../lib/Mail';
-import { erroInterno } from '../statusHTTP_Values';
+import { erroInterno, retornoNaoObrigatorio } from '../statusHTTP_Values';
 import { Request, Response } from 'express';
 
 class SendEmail {
   async execute(email: string, req: Request, res: Response) {
-    const dataEmail = await FindOneContactByDesignacao.execute(email);
-
-    const userData = dataEmail.userId;
-
     try {
-      await Mail.sendMail({
-        from: 'Portal das Escolas <dlinecode@gmail.com>',
-        to: `${userData.nome} <${email}>`,
-        subject: ' Cadastramento de usuário',
-        html: `
+      const dataEmail = await FindOneContactByDesignacao.execute(email);
+
+      const userData = dataEmail.userId;
+
+      await Mail.sendMail(
+        {
+          from: 'Portal das Escolas <dlinecode@gmail.com>',
+          to: `${userData.nome} <${email}>`,
+          subject: ' Cadastramento de usuário',
+          html: `
                             <div width="50%" height="90px" borderRadius="3px" boxShadow="2px 3px 4px #ddd">
                             <p color="#bb00ff">Olá <h2> ${
                               userData.nome
@@ -26,8 +27,10 @@ class SendEmail {
                              </a>
                             </form>
                             </div>`,
-      },console.log(email));
-      return res.status(200).json({message:'obrigado.'});
+        },
+        console.log(email)
+      );
+      return res.status(retornoNaoObrigatorio).json();
     } catch (err) {
       return res.status(erroInterno).json(err);
     }
