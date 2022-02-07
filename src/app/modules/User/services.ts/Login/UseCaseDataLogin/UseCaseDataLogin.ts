@@ -1,13 +1,13 @@
 import { getCustomRepository } from 'typeorm';
 import IContact from '../IContact';
-import ContactRepository from '../../../../repositories/ContactRepository';
-import { ok, proibido, vazio, naoEncontrado } from '../../statusHTTP_Values';
-import FindOneUserById from '../../User/FindUser/FindOneUserById';
-import { naoEncontrado_msg, jaExistente } from '../../mensagensDeResposta';
-import VerifyAlreadyExist from '../../Function/VerifyAlreadyExist';
+import ContactRepository from '../../../../../../repositories/ContactRepository';
+import { ok, proibido, vazio, naoEncontrado } from '../../../../statusHTTP_Values';
+import FindOneUserById from '../../../FindUser/FindOneUserById';
+import { naoEncontrado_msg, jaExistente } from '../../../../mensagensDeResposta';
+import VerifyAlreadyExist from '../../../../Function/VerifyAlreadyExist';
 import IDataLogin from '../IContact';
-import LoginRepository from '../../../../repositories/LoginRepository';
-import PasswordValidate from '../../Function/passwordValidate';
+import LoginRepository from '../../../../../../repositories/LoginRepository';
+import PasswordValidate from '../../../../Function/passwordValidate';
 
 class UseCaseLogin {
   async execute(dataLogin: IDataLogin) {

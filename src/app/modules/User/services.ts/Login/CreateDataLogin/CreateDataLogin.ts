@@ -1,7 +1,7 @@
-import { erroInterno, ok } from '../../statusHTTP_Values';
-import LoginRepository from '../../../../repositories/LoginRepository';
+import { erroInterno, ok } from '../../../../statusHTTP_Values';
+import LoginRepository from '../../../../../../repositories/LoginRepository';
 import { getCustomRepository } from 'typeorm';
-import { mensagemDeErroInterno } from '../../mensagensDeResposta';
+import { mensagemDeErroInterno } from '../../../../mensagensDeResposta';
 import { Response, Request } from 'express';
 import IDataLogin from '../IContact';
 

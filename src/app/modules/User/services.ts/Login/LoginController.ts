@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import * as Yup from 'yup';
-import VerifyAlreadyExist from '../Function/VerifyAlreadyExist';
+import VerifyAlreadyExist from '../../../Function/VerifyAlreadyExist';
 import {
   mensagemDeErroInterno,
   mensagemDeValidacaoDeCampo,
   naoEncontrado_msg,
-} from '../mensagensDeResposta';
+} from '../../../mensagensDeResposta';
 import {
   erroExterno,
   erroInterno,
@@ -14,7 +14,7 @@ import {
   ok,
   proibido,
   vazio,
-} from '../statusHTTP_Values';
+} from '../../../statusHTTP_Values';
 import CreateDataLogin from './CreateDataLogin/CreateDataLogin';
 import FindOneDataLoginOfUser from './FindLogin/FindOneDataLoginOfUser';
 import UseCaseDataLogin from './UseCaseDataLogin/UseCaseDataLogin';
