@@ -1,4 +1,4 @@
-import LoginRepository from '../../../../repositories/LoginRepository';
+import LoginRepository from '../../../../../../repositories/LoginRepository';
 import { getCustomRepository } from 'typeorm';
 
 class FindOneDataOfUserLogin {

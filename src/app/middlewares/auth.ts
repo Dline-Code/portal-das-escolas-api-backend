@@ -24,8 +24,7 @@ class Autenticacao {
     } catch (err) {
       return res.status(400).json({ error: 'falha na autenticação da API!', err });
     }
-  }
-
+  };
   async tokenAuth(req: Request, res: Response, next: NextFunction) {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
@@ -34,7 +33,7 @@ class Autenticacao {
     const [, token] = authHeader.split(' ');
 
     try {
-      jwt.verify(token, authData.key, (err, decoded) => {
+      jwt.verify(token, authData.key, (err, decoded:jwt.JwtPayload) => {
         if (err) return res.status(400).json({ error: `error: ${err}` });
         req.session = decoded?.session;
         return next();

@@ -3,7 +3,7 @@ import DatesTableAtributtes from './share.atribbutes/DatesTableAtribbues';
 import User from './User';
 import Contact from './Contact';
 import { uuid } from 'uuidv4';
-// import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt'
 const generateId = uuid();
 
 @Entity('login')
@@ -32,10 +32,9 @@ export default class Login extends DatesTableAtributtes {
   @Column({ name: 'password:', type: 'varchar', nullable: false })
   password: string;
 
-
-//   @BeforeInsert()
-//   @BeforeUpdate()
-//   hasPassword() {
-//     this.password = bcrypt.hashSync(this.password, 8);
-//   }
+  @BeforeInsert()
+  @BeforeUpdate()
+  hasPassword() {
+    this.password = bcrypt.hashSync(this.password, 8);
+  }
 }
