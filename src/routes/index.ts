@@ -5,6 +5,7 @@ const loginRoutes = require('./LoginRoutes/loginRoutes')
 const userRoutes = require('./UserRoutes/userRoutes')
 const signinRoutes = require('./SigninRoutes/Signin')
 const signoutRoutes = require('./SignoutRoutes/Signout')
+const schoolRoutes = require('./SchoolRoutes/schoolRoutes')
 const  routes = Router();
 
 routes.get('/',((req:Request, res:Response,)=>{
@@ -17,5 +18,5 @@ routes.use(signoutRoutes)
 routes.use(signinRoutes)
 routes.use(loginRoutes)
 routes.use(contactRoutes)
-
+routes.use(schoolRoutes)
 export default routes;
