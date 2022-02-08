@@ -1,12 +1,33 @@
 import * as Yup from 'yup';
-import { erroExterno, erroInterno, naoEncontrado, ok, proibido } from '../statusHTTP_Values';
-import { mensagemDeErroInterno, mensagemDeValidacaoDeCampo } from '../mensagensDeResposta';
+import { erroExterno, erroInterno, indefinido, naoEncontrado, ok, proibido } from '../statusHTTP_Values';
+import { mensagemDeErroInterno, mensagemDeValidacaoDeCampo, naoEncontrado_msg } from '../mensagensDeResposta';
 import { Request, Response } from 'express';
 import UseCaseSchool from './UseCaseSchool/UseCaseSchool';
 import CreateSchool from './CreateSchool/CreateSchool';
+import FindAllSchools from './FindSchool/FindAllSchools';
 
 
 class SchoolController {
+
+      async get(req: Request, res: Response) {
+            try {
+              const { id, limit } = req.params;
+              const school = await FindAllSchools.execute();
+
+
+              if (limit !== indefinido) {
+                const school = await FindAllSchools.execute(Number(limit));
+
+                return res.status(ok).json(school);
+              }
+
+              return res.status(ok).json(school);
+            } catch (erro) {
+              console.log(erro);
+              return res.status(erroInterno).json(mensagemDeErroInterno);
+            }
+          }
+
       async store(req: Request, res: Response) {
             try {
               const schema = Yup.object().shape({
